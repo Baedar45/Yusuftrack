@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cek Resi</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yusuf Track</h1>
+    <input type="text" id="nomorResi" placeholder="Masukkan Nomor Resi">
+    <select id="kurir">
+        <option value="id expres">id expres</option>
+        
+        <option value="sicepat">sicepat</option>
+        
+        <option value="j&t expres">j&t expres</option>
+        
+        <option value="jne">JNE</option>
+        
+        <option value="tiki">TIKI</option>
+        
+        <option value="antareja">antareja</option>
+        
+        <!-- Tambahkan lebih banyak pilihan kurir sesuai kebutuhan -->
+        
+    </select>
+    <button onclick="cekResi()">Cek Resi</button>
+    <div id="hasilCekResi"></div>
+
+    <script>
+        function cekResi() {
+            const nomorResi = document.getElementById('nomorResi').value;
+            const selectedKurir = document.getElementById('kurir').value;
+
+            let URL_API = "";
+
+            if (selectedKurir === "id expres") {
+                URL_API = "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eac&courier=ide&awb=" + nomorResi;
+            } 
+            
+            else if (selectedKurir === "sicepat") {
+                URL_API = "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eac&courier=sicepat&awb=" + nomorResi;
+            }
+            
+            else if (selectedKurir === "j&t expres") {
+                URL_API =              "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eac&courier=jnt&awb=" + nomorResi;
+            }
+            
+            else if (selectedKurir === "jne") {
+                URL_API =
+                "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eaccourier=jne&awb= " + nomorResi
+            }
+            
+            else if (selectedKurir === "tiki") {
+                URL_API=
+                             "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eac&courier=tiki&awb=" + nomorResi
+            }
+            
+            else if (selectedKurir === "antareja") {
+                
+                URL_API
+                "https://api.binderbyte.com/v1/track?api_key=be12efdec801b911595f8fa5fc3eca7c4e5b975a2d5d9ee876db347edcb70eac&courier=anteraja&awb=" + nomorResi
+            }
+
+            fetch(URL_API)
+                .then(response => response.json())
+                .then(data => {
+                    displayResult(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayResult(data) {
+            const hasilCekResi = document.getElementById('hasilCekResi');
+            hasilCekResi.innerHTML = '';
+
+            if (data.status === 200) {
+                const informasiResi = data.data.summary;
+                for (const key in informasiResi) {
+                    hasilCekResi.innerHTML += `${key}: ${informasiResi[key]}<br>`;
+                    if (key === 'destination') {
+                        hasilCekResi.innerHTML += `Kota: ${informasiResi[key]}<br>`;
+                    }
+                }
+
+                // Menampilkan riwayat pengiriman
+                hasilCekResi.innerHTML += "<h2>Riwayat Pengiriman</h2>";
+                const riwayat = data.data.history;
+                for (let i = 0; i < riwayat.length; i++) {
+                    hasilCekResi.innerHTML += `Tanggal: ${riwayat[i].date}, Deskripsi: ${riwayat[i].desc}<br>`;
+                }
+            } else {
+                hasilCekResi.innerHTML = "Nomor resi tidak valid atau tidak ditemukan.";
+            }
+        }
+    </script>
+</body>
+</html>
