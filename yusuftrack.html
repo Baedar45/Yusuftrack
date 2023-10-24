@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Cek Resi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
     <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
 
         h1 {
-            color: #333;
+            color: white;
+            background-color: #007BFF;
+            padding: 1px;
+            font-style: italic;
+            font-family: Arial;
+            font-weight: bold;
+          
+        }
+
+        h3 {
+            font-size: 10px;
         }
 
         input {
-            padding: 5px;
+            padding: 10px;
             font-size: 16px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            margin: 10px;
+            width: 90%;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            margin: 10px;
+            width: 90%;
         }
 
         button {
@@ -22,37 +51,167 @@
             background-color: #007BFF;
             color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            width: 90%;
         }
 
         button:hover {
             background-color: #0056b3;
         }
+
+        #hasilCekResi {
+            margin: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        h2 {
+            text-align: left;
+            font-size: 15px;
+        }
+
+        p {
+            text-align: left;
+            font-size: 10px;
+        }
+
+        #menu {
+            display: none;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+       #tombol-menu {
+   background-color: white;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    top: 20px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+        /* Dark Mode Styles */
+.dark-mode {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+#dark-mode-toggle{
+    background-color: white;
+}
     </style>
 </head>
+
 <body>
+    
+  <button id="dark-mode-toggle">
+    <i class="fas fa-moon" style="color: #333;"></i>
+    <i class="fas fa-sun" style="display: none; color: #FFD700;"></i>
+</button>
+
+
+
+    <div id="header">
+    </div>
+   <button id="tombol-menu"><i class="fas fa-bars" style="color: black; font-size: 20px;"></i></button>
+
+
+
+    <div id="menu">
+        <a href="#">Beranda</a>
+        <a href="#">Tentang Kami</a>
+        <a href="#">Layanan</a>
+        <a href="#">Kontak</a>
+        
+    </div>
     <h1>Yusuf Track</h1>
+    <div>
+        <h3> "Temukan kemudahan cek resi pengirimanmu di website Yusuf Track! Pantau paketmu dengan cepat dan akurat." </h3>
+    </div>
     <input type="text" id="nomorResi" placeholder="Masukkan Nomor Resi">
     <select id="kurir">
         <option value="id expres">id expres</option>
-        
         <option value="sicepat">sicepat</option>
-        
         <option value="j&t expres">j&t expres</option>
-        
         <option value="jne">JNE</option>
-        
         <option value="tiki">TIKI</option>
-        
         <option value="antareja">antareja</option>
-        
         <!-- Tambahkan lebih banyak pilihan kurir sesuai kebutuhan -->
-        
     </select>
     <button onclick="cekResi()">Cek Resi</button>
+    
     <div id="hasilCekResi"></div>
+    <h2>Kemudahan YusufTrack</h2>
+    <p>1. "Yusuf Track cek resi memberikan kemudahan dalam melacak pengiriman barang Anda secara real-time, sehingga Anda selalu tahu di mana posisi barang Anda saat ini."</p>
+    <p>2. "Dengan fitur notifikasi otomatis, Anda tidak perlu terus-menerus memeriksa resi. Yusuf Track akan memberi tahu Anda secara langsung saat ada pembaruan terkait pengiriman Anda."</p>
+<p>
+    3. "Tidak perlu lagi mengunjungi berbagai situs kurir. Yusuf Track menyediakan satu tempat untuk melacak semua pengiriman Anda, menghemat waktu dan usaha."
+</p>
+<p>
+    4. "Dilengkapi dengan antarmuka yang sederhana dan mudah digunakan, website ini cocok untuk semua kalangan, baik pemula maupun pengguna berpengalaman."
+</p>
+<p>
+    5. "Yusuf Track cek resi memberikan kemudahan akses dari perangkat apa pun, sehingga Anda dapat melacak pengiriman Anda kapan saja, di mana saja, melalui komputer atau ponsel Anda."
+</p>
+
+<footer> &copy; 2023 Yusuf Track. Hak Cipta Dilindungi Undang-Undang. </footer>
+
 
     <script>
+        
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+const body = document.body;
+
+// Fungsi untuk mengubah ikon
+function toggleIcon() {
+    const moonIcon = darkModeToggle.querySelector('.fa-moon');
+    const sunIcon = darkModeToggle.querySelector('.fa-sun');
+    if (moonIcon.style.display === 'none') {
+        moonIcon.style.display = 'inline';
+        sunIcon.style.display = 'none';
+    } else {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'inline';
+    }
+}
+
+// ...
+
+// Di dalam event listener untuk tombol Dark Mode, panggil fungsi toggleIcon
+darkModeToggle.addEventListener('click', () => {
+    if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+    } else {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+    }
+    toggleIcon(); // Panggil fungsi untuk mengganti ikon
+});
+
+
+        
+        const tombolMenu = document.getElementById('tombol-menu'); const menu = document.getElementById('menu'); tombolMenu.addEventListener('click', function() { menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none'; });
+      
+
         function cekResi() {
             const nomorResi = document.getElementById('nomorResi').value;
             const selectedKurir = document.getElementById('kurir').value;
@@ -110,7 +269,8 @@
 
                 // Menampilkan riwayat pengiriman
                 hasilCekResi.innerHTML += "<h2>Riwayat Pengiriman</h2>";
-                const riwayat = data.data.history;
+                                const riwayat = data.data.history;
+
                 for (let i = 0; i < riwayat.length; i++) {
                     hasilCekResi.innerHTML += `Tanggal: ${riwayat[i].date}, Deskripsi: ${riwayat[i].desc}<br>`;
                 }
@@ -119,5 +279,7 @@
             }
         }
     </script>
+    
 </body>
+
 </html>
